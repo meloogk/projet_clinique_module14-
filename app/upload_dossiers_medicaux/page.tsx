@@ -1,9 +1,9 @@
-
 "use client"
 
 import { useState } from "react";
 import { FiUploadCloud } from "react-icons/fi";
 import { IoCloudUploadOutline } from "react-icons/io5";
+import Image from "next/image";
 
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
@@ -26,7 +26,7 @@ export default function Home() {
     formData.append("file", file);
 
     try {
-      const response = await fetch("/api/upload", {
+      const response = await fetch("/api/telecharger_dossiers", {
         method: "POST",
         body: formData,
       });
@@ -48,9 +48,11 @@ export default function Home() {
         
         {/* Section Image */}
         <div className="hidden md:block">
-          <img
-            src="/medical-archive.png" 
+          <Image
+            src="/images/img8.avif" 
             alt="Archivage Médical"
+            width={800}
+            height={800}
             className="w-full rounded-2xl shadow-lg"
           />
         </div>
@@ -75,7 +77,14 @@ export default function Home() {
           {preview && (
             <div className="mt-6 p-4 border rounded-lg bg-gray-50 shadow-md">
               <p className="text-lg font-medium text-gray-700">Aperçu :</p>
-              <img src={preview} alt="Preview" className="w-full mt-3 rounded-lg shadow-lg" />
+              <Image
+                src={preview}
+                alt="Preview"
+                width={500}
+                height={300}
+                className="w-full mt-3 rounded-lg shadow-lg"
+                unoptimized
+              />
             </div>
           )}
 
