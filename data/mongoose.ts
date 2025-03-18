@@ -12,7 +12,10 @@ export const DBConnect = async () => {
     }
     //On se connecte à la base de données
     mongoose.connect(url, options)
-    .then(() => console.log("Connexion réussi à la base de données"))
+    .then(() => {console.log("Connexion réussi à la base de données")
+    return "ok"
+}
+)
     .catch((er) => console.log("Erreur détecté", er))
 }
 
