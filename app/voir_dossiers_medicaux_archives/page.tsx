@@ -49,18 +49,22 @@ const DocumentsPage = () => {
   };
 
   // Fonction pour supprimer un document
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (fileName: string) => {
     if (window.confirm("Êtes-vous sûr de vouloir supprimer ce document ?")) {
       try {
-        const response = await fetch(`/api/supprimer_documents?id=${id}`, {
+        const response = await fetch("/api/supprimer_documents", {
           method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ fileName }) // Envoyer le nom du fichier
         });
+  
         const data = await response.json();
-        if (data.message === "ok") {
-          setDocuments(documents.filter((documents) => documents._id !== id)); // Mise à jour de l'état après suppression
-          alert(data.message);
+  
+        if (response.ok) {
+          setDocuments(documents.filter((doc) => doc.nom !== fileName)); // Mise à jour de l'état
+          alert("Document supprimé avec succès !");
         } else {
-          alert("Échec de la suppression du document");
+          alert(`Erreur: ${data.message}`);
         }
       } catch (error) {
         console.error("Erreur lors de la suppression du fichier:", error);
@@ -68,6 +72,7 @@ const DocumentsPage = () => {
       }
     }
   };
+  
 
   return (
     <div className="min-h-screen bg-blue-50 flex flex-col items-center py-10 px-6">
@@ -97,7 +102,7 @@ const DocumentsPage = () => {
                 <tr>
                   <th className="py-4 px-6 text-left">Document</th>
                   <th className="py-4 px-6 text-left">Type</th>
-                  <th className="py-4 px-6 text-left">Taille</th>
+                  <th className="py-4 px-6 text-left">Taille(Ko)</th>
                   <th className="py-4 px-6 text-left">Date</th>
                   <th className="py-4 px-6 text-center">Actions</th>
                 </tr>
@@ -142,7 +147,7 @@ const DocumentsPage = () => {
                           <Eye className="w-6 h-6" />
                         </button>
                         <button
-                          onClick={() => handleDelete(doc._id)}
+                          onClick={() => handleDelete(doc.nom)}
                           className="text-red-600 hover:text-red-800 transition duration-300"
                         >
                           <Trash className="w-6 h-6" />

@@ -29,7 +29,7 @@ const fileUrls = files.map((file) => {
    
   
     return {
-      name: file,
+      nom: file,
       size: stats.size, // Taille du fichier en octets
       type: fileType, // Type MIME du fichier
       dateAjout: stats.birthtime ? stats.birthtime.toISOString().slice(0, 10) : stats.ctime.toISOString().slice(0, 10), // Date de création ou modification
