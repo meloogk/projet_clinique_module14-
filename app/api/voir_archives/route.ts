@@ -5,7 +5,7 @@ import mime from "mime-types";
 
 export const GET = async () => {
   try {
-    // Définir le dossier des fichiers archivés
+   
     const uploadDir = path.join(process.cwd(), "public/uploads");
 
     // Vérifier si le dossier existe
@@ -13,7 +13,7 @@ export const GET = async () => {
       return NextResponse.json({ message: "Aucun fichier trouvé" }, { status: 404 });
     }
 
-    // Lire le contenu du dossier (les fichiers)
+  
     const files = fs.readdirSync(uploadDir);
 
     // Vérifier s'il y a des fichiers
@@ -24,22 +24,21 @@ export const GET = async () => {
    // Construire l'URL complète pour chaque fichier
 const fileUrls = files.map((file) => {
     const filePath = path.join(uploadDir, file);
-    const stats = fs.statSync(filePath); // Récupérer les informations du fichier
-    const fileType = mime.lookup(filePath) || "application/octet-stream"; // Déterminer le type MIME du fichier
+    const stats = fs.statSync(filePath); 
+    const fileType = mime.lookup(filePath) || "application/octet-stream"; 
    
   
     return {
       nom: file,
-      size: stats.size, // Taille du fichier en octets
-      type: fileType, // Type MIME du fichier
-      dateAjout: stats.birthtime ? stats.birthtime.toISOString().slice(0, 10) : stats.ctime.toISOString().slice(0, 10), // Date de création ou modification
+      size: stats.size,
+      type: fileType, 
+      dateAjout: stats.birthtime ? stats.birthtime.toISOString().slice(0, 10) : stats.ctime.toISOString().slice(0, 10), 
       url: `/uploads/${file}`,
     };
   });
   
-  console.log(fileUrls); // Vérification en console
+  console.log(fileUrls); 
 
-    // Retourner la liste des fichiers
     return NextResponse.json(fileUrls, { status: 200 });
   } catch (error) {
     console.error("Erreur lors de la récupération des fichiers :", error);

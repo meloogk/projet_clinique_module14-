@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import dotenv from "dotenv" //Pour utiliser les variables d'environnement stocker dans le fichier .env
+import dotenv from "dotenv" 
 dotenv.config()
 
 const url = process.env.MONGOOSE_URL//Pour recupérer notre varible MONGOOSE_URL qui contient la chaine de connection pour notre cluster, stocker dans le fichier .env

@@ -16,11 +16,10 @@ export const POST = async (req: Request) => {
       return NextResponse.json({ message: "Aucun fichier envoyé" }, { status: 400 });
     }
 
-    // Convertir le fichier en buffer
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Définir le dossier et vérifier s'il existe
+    
     const uploadDir = path.join(process.cwd(), "public/uploads");
     if (!fs.existsSync(uploadDir)) {
       await mkdir(uploadDir, { recursive: true });
@@ -32,11 +31,11 @@ export const POST = async (req: Request) => {
     // Enregistrer le fichier
     await writeFile(filePath, buffer);
 
-    // Enregistrer le document dans MongoDB
     const document = await DocumentModel.create({
       nom: file.name,
       type: file.type,
       url: `/uploads/${file.name}`,
+      size: file.size, 
     });
 
     return NextResponse.json({ message: "Document ajouté", document }, { status: 201 });

@@ -84,61 +84,48 @@ const DocumentsPage = () => {
           Stockez et accédez aux dossiers médicaux en toute sécurité.
         </p>
       </div>
-
+  
       <div className="max-w-6xl w-full mt-8">
         <h2 className="text-2xl font-semibold text-gray-800 mb-6">
           Documents Archivés
         </h2>
-
+  
         {/* Affichage de l'état de chargement */}
         {loading ? (
           <div className="flex justify-center py-4">
             <span>Chargement des documents...</span>
           </div>
         ) : (
-          <div className="overflow-hidden rounded-xl shadow-lg">
+          <div className="overflow-x-auto rounded-xl shadow-lg">
             <table className="min-w-full bg-white rounded-xl">
               <thead className="bg-blue-700 text-white text-lg">
                 <tr>
-                  <th className="py-4 px-6 text-left">Document</th>
-                  <th className="py-4 px-6 text-left">Type</th>
-                  <th className="py-4 px-6 text-left">Taille(Ko)</th>
-                  <th className="py-4 px-6 text-left">Date</th>
-                  <th className="py-4 px-6 text-center">Actions</th>
+                  <th className="py-4 px-6 text-left text-xs sm:text-sm">Document</th>
+                  <th className="py-4 px-6 text-left text-xs sm:text-sm">Type</th>
+                  <th className="py-4 px-6 text-left text-xs sm:text-sm">Taille(Ko)</th>
+                  <th className="py-4 px-6 text-left text-xs sm:text-sm">Date</th>
+                  <th className="py-4 px-6 text-center text-xs sm:text-sm">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {documents.map((doc) => {
-                  console.log("Document:", doc); // Débogage pour vérifier chaque document
-
-                  // Crée une clé unique en utilisant _id ou nom + dateAjout, avec des valeurs de fallback pour éviter undefined
                   const key =
                     doc._id ||
-                    `${doc.nom || "unknown"}-${
-                      doc.dateAjout
-                        ? new Date(doc.dateAjout).toISOString()
-                        : Date.now()
-                    }`;
-
-                  // Formater la date d'ajout pour l'affichage
+                    `${doc.nom || "unknown"}-${doc.dateAjout ? new Date(doc.dateAjout).toISOString() : Date.now()}`;
+  
                   const formattedDate = doc.dateAjout
                     ? new Date(doc.dateAjout).toLocaleDateString()
                     : "N/A";
-
+  
                   return (
                     <tr key={key} className="border-b hover:bg-gray-50">
                       <td className="py-4 px-6 flex items-center gap-3">
                         <FileText className="w-6 h-6 text-blue-600" />
-                        <span className="font-medium text-gray-700">
-                          {doc.nom}
-                        </span>
+                        <span className="font-medium text-gray-700">{doc.nom}</span>
                       </td>
                       <td className="py-4 px-6 text-gray-600">{doc.type}</td>
                       <td className="py-4 px-6 text-gray-600">{doc.size}</td>
-                      <td className="py-4 px-6 text-gray-600">
-                        {formattedDate}
-                      </td>{" "}
-                      {/* Afficher la date formatée */}
+                      <td className="py-4 px-6 text-gray-600">{formattedDate}</td>
                       <td className="py-4 px-6 text-center flex justify-center gap-4">
                         <button
                           onClick={() => handleView(doc)}
@@ -163,6 +150,8 @@ const DocumentsPage = () => {
       </div>
     </div>
   );
+  
+  
 };
 
 export default DocumentsPage;
