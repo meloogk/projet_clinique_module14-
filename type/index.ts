@@ -3,6 +3,7 @@ export type Document = {
   nom: string;
   type: string;
   size: number;
+  url : string;
   dateAjout: string;
   path: string;
   signature: {

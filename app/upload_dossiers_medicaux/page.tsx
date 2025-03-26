@@ -3,7 +3,9 @@
 import { useState } from "react";
 import { FiUploadCloud } from "react-icons/fi";
 import { IoCloudUploadOutline } from "react-icons/io5";
+import { FaEye } from "react-icons/fa";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
@@ -88,7 +90,7 @@ export default function Home() {
             </div>
           )}
 
-          {/* Bouton de téléchargement */}
+          {/* Boutons */}
           <button
             onClick={handleUpload}
             className="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-2xl transition-all duration-300 shadow-lg flex items-center justify-center space-x-2 text-lg"
@@ -96,6 +98,15 @@ export default function Home() {
             <IoCloudUploadOutline className="text-2xl" />
             <span> Télécharger le document</span>
           </button>
+          
+          {/* Bouton Voir Documents */}
+          <Link
+            href="/voir_dossiers_medicaux_archives"
+            className="mt-4 w-full bg-green-600  text-white font-semibold py-3 px-6 rounded-2xl transition-all duration-300 shadow-lg flex items-center justify-center space-x-2 text-lg"
+          >
+             <FaEye />
+            <span>Voir Documents</span>
+          </Link>
         </div>
       </div>
     </div>

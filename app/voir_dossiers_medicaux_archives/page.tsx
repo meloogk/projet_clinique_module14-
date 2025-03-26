@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Eye, Trash, FileText } from "lucide-react";
+import Link from "next/link";
+import { FileSignature, Trash, FileText } from "lucide-react";
 import { Document } from "../../type";
 
 const DocumentsPage = () => {
@@ -20,7 +21,7 @@ const DocumentsPage = () => {
       }
 
       const data = await response.json();
-      localStorage.setItem( 'data',JSON.stringify(data))
+      localStorage.setItem("data", JSON.stringify(data));
 
       console.log("Données récupérées:", data);
 
@@ -42,12 +43,6 @@ const DocumentsPage = () => {
     fetchDocuments();
   }, []);
 
-  // Fonction pour gérer la visualisation d'un document
-  const handleView = (documents: Document) => {
-    alert(`Aperçu du fichier : ${documents.nom}`);
-    console.log(documents);
-  };
-
   // Fonction pour supprimer un document
   const handleDelete = async (fileName: string) => {
     if (window.confirm("Êtes-vous sûr de vouloir supprimer ce document ?")) {
@@ -57,9 +52,9 @@ const DocumentsPage = () => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ fileName }) // Envoyer le nom du fichier
         });
-  
+
         const data = await response.json();
-  
+
         if (response.ok) {
           setDocuments(documents.filter((doc) => doc.nom !== fileName)); // Mise à jour de l'état
           alert("Document supprimé avec succès !");
@@ -72,7 +67,6 @@ const DocumentsPage = () => {
       }
     }
   };
-  
 
   return (
     <div className="min-h-screen bg-blue-50 flex flex-col items-center py-10 px-6">
@@ -84,12 +78,12 @@ const DocumentsPage = () => {
           Stockez et accédez aux dossiers médicaux en toute sécurité.
         </p>
       </div>
-  
+
       <div className="max-w-6xl w-full mt-8">
         <h2 className="text-2xl font-semibold text-gray-800 mb-6">
           Documents Archivés
         </h2>
-  
+
         {/* Affichage de l'état de chargement */}
         {loading ? (
           <div className="flex justify-center py-4">
@@ -112,11 +106,11 @@ const DocumentsPage = () => {
                   const key =
                     doc._id ||
                     `${doc.nom || "unknown"}-${doc.dateAjout ? new Date(doc.dateAjout).toISOString() : Date.now()}`;
-  
+
                   const formattedDate = doc.dateAjout
                     ? new Date(doc.dateAjout).toLocaleDateString()
                     : "N/A";
-  
+
                   return (
                     <tr key={key} className="border-b hover:bg-gray-50">
                       <td className="py-4 px-6 flex items-center gap-3">
@@ -127,12 +121,13 @@ const DocumentsPage = () => {
                       <td className="py-4 px-6 text-gray-600">{doc.size}</td>
                       <td className="py-4 px-6 text-gray-600">{formattedDate}</td>
                       <td className="py-4 px-6 text-center flex justify-center gap-4">
-                        <button
-                          onClick={() => handleView(doc)}
+                        {/* Lien vers la page de signature */}
+                        <Link
+                          href={`/voir_signer_documents_medicaux`}
                           className="text-blue-600 hover:text-blue-800 transition duration-300"
                         >
-                          <Eye className="w-6 h-6" />
-                        </button>
+                          <FileSignature className="w-6 h-6" />
+                        </Link>
                         <button
                           onClick={() => handleDelete(doc.nom)}
                           className="text-red-600 hover:text-red-800 transition duration-300"
@@ -150,8 +145,6 @@ const DocumentsPage = () => {
       </div>
     </div>
   );
-  
-  
 };
 
 export default DocumentsPage;
