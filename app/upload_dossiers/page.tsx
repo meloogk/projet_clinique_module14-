@@ -101,8 +101,8 @@ export default function Home() {
           
           {/* Bouton Voir Documents */}
           <Link
-            href="/voir_dossiers_medicaux_archives"
-            className="mt-4 w-full bg-green-600  text-white font-semibold py-3 px-6 rounded-2xl transition-all duration-300 shadow-lg flex items-center justify-center space-x-2 text-lg"
+            href="/voir_dossiers"
+            className="mt-4 w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-2xl transition-all duration-300 shadow-lg flex items-center justify-center space-x-2 text-lg"
           >
              <FaEye />
             <span>Voir Documents</span>

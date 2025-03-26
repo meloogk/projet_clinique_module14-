@@ -1,6 +1,5 @@
-"use client"
+"use client";
 import { useState, useEffect, useRef } from "react";
-
 import { FiEye } from "react-icons/fi";
 import { Document } from "@/type";
 import SignatureCanvas from "react-signature-canvas";
@@ -34,7 +33,7 @@ export default function SignDocumentPage() {
 
   const handleSign = async () => {
     if (!selectedDocument) return alert("Sélectionnez un document à signer.");
-    if (!signatureData) return alert("Veuillez dessiner votre signature.");
+    if (!signatureData) return alert("Veuillez sauvegarder votre signature avant de continuer.");
 
     setIsUploading(true);
     setUploadError(null);
@@ -47,7 +46,7 @@ export default function SignDocumentPage() {
         body: JSON.stringify({
           documentId: selectedDocument._id,
           signature: signatureData,
-          signataire: "John Doe",
+          signataire: "dr koffi",
         }),
       });
 
@@ -84,7 +83,7 @@ export default function SignDocumentPage() {
           <Image src="/images/clinic-logo.png" alt="Logo" width={180} height={70} />
         </div>
         <h2 className="text-3xl font-bold text-center text-teal-700 mb-6">
-          Signature Électronique de Document Médical
+         Procédez à la Signature Électronique de vos  Documents 
         </h2>
         {!selectedDocument ? (
           <div>
@@ -104,7 +103,9 @@ export default function SignDocumentPage() {
           <div>
             <div className="flex justify-between items-center border p-4 mb-4 rounded-lg bg-gray-100">
               <h3 className="text-lg font-medium text-gray-800">{selectedDocument.nom}</h3>
-              <button onClick={() => setSelectedDocument(null)} className="text-red-500 font-semibold">Changer de document</button>
+              <button onClick={() => setSelectedDocument(null)} className="text-red-500 font-semibold">
+                Changer de document
+              </button>
             </div>
             {selectedDocument.url.endsWith(".pdf") && (
               <iframe
@@ -115,10 +116,21 @@ export default function SignDocumentPage() {
             )}
             <div className="mt-6">
               <h3 className="text-lg font-medium text-gray-800 mb-2">Dessinez votre signature :</h3>
-              <SignatureCanvas ref={signatureRef} canvasProps={{ width: 500, height: 200, className: "border rounded-lg shadow-sm" }} />
+              <SignatureCanvas
+                ref={signatureRef}
+                canvasProps={{
+                  width: 500,
+                  height: 200,
+                  className: "border rounded-lg shadow-sm",
+                }}
+              />
               <div className="flex justify-between mt-2">
-                <button onClick={saveSignature} className="bg-teal-600 text-white py-2 px-4 rounded-lg hover:bg-teal-700 transition">Sauvegarder</button>
-                <button onClick={clearSignature} className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition">Effacer</button>
+                <button onClick={saveSignature} className="bg-teal-600 text-white py-2 px-4 rounded-lg hover:bg-teal-700 transition">
+                  Sauvegarder
+                </button>
+                <button onClick={clearSignature} className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition">
+                  Effacer
+                </button>
               </div>
             </div>
             <div className="flex justify-center mt-6">

@@ -123,7 +123,7 @@ const DocumentsPage = () => {
                       <td className="py-4 px-6 text-center flex justify-center gap-4">
                         {/* Lien vers la page de signature */}
                         <Link
-                          href={`/voir_signer_documents_medicaux`}
+                          href={`/signer`}
                           className="text-blue-600 hover:text-blue-800 transition duration-300"
                         >
                           <FileSignature className="w-6 h-6" />
