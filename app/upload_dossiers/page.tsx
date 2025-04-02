@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { FiUploadCloud } from "react-icons/fi";
 import { IoCloudUploadOutline } from "react-icons/io5";
-import { FaEye } from "react-icons/fa";
+import { FaEye, FaArrowLeft } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -106,6 +106,15 @@ export default function Home() {
           >
              <FaEye />
             <span>Voir Documents</span>
+          </Link>
+
+          {/* Bouton Retour à l'accueil */}
+          <Link
+            href="/"
+            className="mt-4 w-full bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-2xl transition-all duration-300 shadow-lg flex items-center justify-center space-x-2 text-lg"
+          >
+            <FaArrowLeft />
+            <span>Retour à l'accueil</span>
           </Link>
         </div>
       </div>

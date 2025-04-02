@@ -1,9 +1,10 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { FiEye } from "react-icons/fi";
+import { FiEye, FiChevronDown } from "react-icons/fi";
 import { Document } from "@/type";
 import SignatureCanvas from "react-signature-canvas";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function SignDocumentPage() {
   const [documents, setDocuments] = useState<Document[]>([]);
@@ -13,6 +14,7 @@ export default function SignDocumentPage() {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [signatureData, setSignatureData] = useState<string | null>(null);
   const signatureRef = useRef<SignatureCanvas | null>(null);
+  const [showActions, setShowActions] = useState(false);
 
   useEffect(() => {
     const fetchDocuments = async () => {
@@ -83,8 +85,28 @@ export default function SignDocumentPage() {
           <Image src="/images/clinic-logo.png" alt="Logo" width={180} height={70} />
         </div>
         <h2 className="text-3xl font-bold text-center text-teal-700 mb-6">
-         Procédez à la Signature Électronique de vos  Documents 
+          Procédez à la Signature Électronique de vos Documents
         </h2>
+
+        <div className="relative mb-6">
+          <button
+            className="bg-teal-700 text-white py-2 px-4 rounded-lg flex items-center justify-between w-full shadow-md hover:bg-teal-800 transition"
+            onClick={() => setShowActions(!showActions)}
+          >
+            Nouvelle Action <FiChevronDown className="ml-2" />
+          </button>
+          {showActions && (
+            <div className="absolute left-0 mt-2 w-full bg-white shadow-lg rounded-lg border border-gray-200 overflow-hidden z-10">
+              <Link href="/upload_dossiers" className="block px-4 py-3 hover:bg-gray-100 text-gray-800">
+                Télécharger un document
+              </Link>
+              <Link href="/voir_dossiers" className="block px-4 py-3 hover:bg-gray-100 text-gray-800">
+                Voir les archives
+              </Link>
+            </div>
+          )}
+        </div>
+
         {!selectedDocument ? (
           <div>
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Sélectionnez un document :</h3>
